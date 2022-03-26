@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: mysql-db
+    image: mysql:oracle@sha256:e1866c1d0f58b69de7fa0b5986564ae044784f0dd1c61c01bbf3ec1470784312
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    ports:
+      - 3306
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./file:/var/lib/mysql-files
+    networks:
+      practice-mysql-server:
+        ipv4_address: 129.0.0.3
+
+networks:
+  practice-mysql-server:
+    ipam:
+      driver: default
+      config:
+        - subnet: "129.0.0.0/24"
