@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  db:
+  mysql-db:
     container_name: mysql-db
     image: mysql:oracle@sha256:e1866c1d0f58b69de7fa0b5986564ae044784f0dd1c61c01bbf3ec1470784312
     restart: always
@@ -13,11 +13,11 @@ services:
       - ./data:/var/lib/mysql
       - ./file:/var/lib/mysql-files
     networks:
-      practice-mysql-server:
+      sql-playground:
         ipv4_address: 129.0.0.3
 
 networks:
-  practice-mysql-server:
+  sql-playground:
     ipam:
       driver: default
       config:
