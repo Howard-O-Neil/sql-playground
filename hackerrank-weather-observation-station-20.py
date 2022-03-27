@@ -7,7 +7,7 @@ import sqlalchemy.types as T
 
 from sqlalchemy.orm import declarative_base, Session
 
-url = "mysql+pymysql://admin:123@129.0.0.3/practice"
+url = "postgresql+pg8000://admin:123@129.0.0.4/postgres"
 engine = create_engine(url, echo=True)
 session = Session(bind=engine)
 
@@ -15,7 +15,7 @@ Base = declarative_base()
 
 class Station(Base):
     __tablename__ = "station"
-    uid = Column(type_=T.String(36), name="UID", primary_key=True, default=text("(UUID())"), server_default=text("(UUID())"))
+    uid = Column(type_=T.String(36), name="UID", primary_key=True, default=text("(uuid_generate_v4())"), server_default=text("(uuid_generate_v4())"))
     id = Column(type_=T.Integer, name="ID")
     city = Column(type_=T.String(21), name="CITY")
     state = Column(type_=T.String(10), name="STATE")
@@ -45,6 +45,8 @@ def insert_data():
 
         city = spaces[1]
         for i in range(2, len(spaces) - 1):
+            lat_n, long_w = None, None
+
             if i + 1 >= len(spaces) or spaces[i + 1].replace('.', '', 1).isdigit():
                 state = spaces[i]
 

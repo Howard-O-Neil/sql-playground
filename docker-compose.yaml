@@ -11,10 +11,25 @@ services:
       - 3306
     volumes:
       - ./data:/var/lib/mysql
-      - ./file:/var/lib/mysql-files
     networks:
       sql-playground:
         ipv4_address: 129.0.0.3
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:12.10@sha256:d3ccc43754fd0bf96409ad68286a1f32d4391ab25f4384b4a4e1376e0d2c70cf
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+    networks:
+      sql-playground:
+        ipv4_address: 129.0.0.4
 
 networks:
   sql-playground:
